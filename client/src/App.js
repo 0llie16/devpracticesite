@@ -7,7 +7,7 @@ import Login from './components/auth/Login';
 import './App.css';
 
 const App = () => (
-    <Router>
+  <Router>
     <Fragment>
       <Navbar />
       <Route exact path='/' component={Landing} />
@@ -18,7 +18,7 @@ const App = () => (
         </Switch>
       </section>
     </Fragment>
-    </Router>
+  </Router>
 );
 
 export default App;
