@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -8,34 +9,32 @@ const Login = () => {
   });
 
   const { email, password } = formData;
+  console.log('FORM DATA', formData);
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
-
+  // let password2 =
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (password !== password2) {
-      console.log('Passwords do not match');
-    } else {
-      const newUser = {
-        email,
-        password,
+
+    const newUser = {
+      email,
+      password,
+    };
+
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'application/jason',
+        },
       };
 
-      try {
-        const config = {
-          headers: {
-            'Content-Type': 'application/jason',
-          },
-        };
+      const body = JSON.stringify(newUser);
 
-        const body = JSON.stringify(newUser);
-
-        const res = await axios.post('/api/users', body, config);
-        console.log(res.data);
-      } catch (err) {
-        console.error(err.response.data);
-      }
+      const res = await axios.post('/api/users', body, config);
+      console.log(res.data);
+    } catch (err) {
+      console.error(err.response.data);
     }
   };
 
@@ -51,7 +50,7 @@ const Login = () => {
             type='email'
             placeholder='Email Address'
             name='email'
-            value={name}
+            value={''}
             onChange={(e) => onChange(e)}
             required
           />
